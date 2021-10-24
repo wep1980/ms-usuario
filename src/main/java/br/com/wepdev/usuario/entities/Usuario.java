@@ -14,8 +14,12 @@ public class Usuario implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
+
+    @Column(unique = true)
     private String email;
+
     private String senha;
 
     @ManyToMany(fetch = FetchType.EAGER) // Dados dos perfis(Role) sera carregado automaticamente com os dados do usuario
