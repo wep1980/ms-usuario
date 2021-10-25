@@ -7,40 +7,39 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "tb_usuario")
-public class Usuario implements Serializable {
+@Table(name = "tb_user")
+public class User implements Serializable {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nome;
+    private String name;
 
     @Column(unique = true)
     private String email;
 
-    private String senha;
+    private String password;
 
     @ManyToMany(fetch = FetchType.EAGER) // Dados dos perfis(Role) sera carregado automaticamente com os dados do usuario
-    @JoinTable(name = "tb_usuario_role", // Nome da tabela que sera criada no banco por ter um relacionamento manyToMany
-    joinColumns = @JoinColumn(name = "usuario_id"), // Nome da chave estrangeira da tabela Usuario que ficara na terceira tabela criada pelo banco
+    @JoinTable(name = "tb_user_role", // Nome da tabela que sera criada no banco por ter um relacionamento manyToMany
+    joinColumns = @JoinColumn(name = "user_id"), // Nome da chave estrangeira da tabela Usuario que ficara na terceira tabela criada pelo banco
     inverseJoinColumns = @JoinColumn(name = "role_id") // Nome da chave estrangeira da tabela Role que ficara na terceira tabela criada pelo banco
     )
     private Set<Role> roles = new HashSet<>();
 
 
-    public Usuario() {
+    public User() {
     }
 
 
-    public Usuario(Long id, String nome, String email, String senha) {
+    public User(Long id, String name, String email, String password) {
         this.id = id;
-        this.nome = nome;
+        this.name = name;
         this.email = email;
-        this.senha = senha;
+        this.password = password;
     }
-
 
 
     public Long getId() {
@@ -51,12 +50,12 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getName() {
+        return name;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {
@@ -67,12 +66,12 @@ public class Usuario implements Serializable {
         this.email = email;
     }
 
-    public String getSenha() {
-        return senha;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSenha(String senha) {
-        this.senha = senha;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Set<Role> getRoles() {
@@ -88,7 +87,7 @@ public class Usuario implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Usuario usuario = (Usuario) o;
+        User usuario = (User) o;
         return Objects.equals(id, usuario.id);
     }
 
